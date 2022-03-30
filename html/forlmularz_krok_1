@@ -1,0 +1,22 @@
+<h5>Umówienienie pomiaru krok 1 z 2</h5>
+<h2>Twoje dane kontaktowe</h2>
+<div id="send_form_status"></div>
+<form method="post" action="/send_form.php" id="contact_form">
+     <div><label for="name">Imię i nazwisko</label></div>
+     <div><input type="text" name="name" id="name" class="formField" /></div>
+     <div><label for="phone">Numer telefonu</label></div>
+     <div><input type="text" name="phone" id="phone" class="formField" /></div>
+     <div><label for="email">Adres email</label></div>
+     <div><input type="text" name="email" id="email" class="formField" /></div>
+	 
+	 <label for="product">Wybierz typ produktu:</label>
+
+	<select name="product" id="product">
+	  <option value="roleta">Roleta</option>
+	  <option value="plisa">Plisa</option>
+	  <option value="asdf">Asdf</option>
+	  <option value="qwer">Qwer</option>
+	</select>
+	 
+     <div><button id="sendBtn">Dalej</button></div>
+</form>
