@@ -1,25 +1,22 @@
-<template>
-  <concact_info_form/>
-</template>
-
-
-
-
-<script>
-import concact_info_form from './components/concact_info_form.vue'
-
-export default {
-  name: 'app',
-  components: {concact_info_form}
-}
+<script setup>
+import { RouterLink, RouterView } from 'vue-router'
 </script>
 
+<template>
+  <header>
+    <div class="wrapper">
+      <nav>
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/formularz">Formularz</RouterLink>
+      </nav>
+    </div>
+  </header>
 
-
-
+  <RouterView />
+</template>
 
 <style>
-@import './assets/base.css';
+@import '@/assets/base.css';
 
 #app {
   max-width: 1280px;
@@ -31,6 +28,7 @@ export default {
 
 header {
   line-height: 1.5;
+  max-height: 100vh;
 }
 
 .logo {
@@ -49,6 +47,31 @@ a,
   a:hover {
     background-color: hsla(160, 100%, 37%, 0.2);
   }
+}
+
+nav {
+  width: 100%;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+nav a.router-link-exact-active {
+  color: var(--color-text);
+}
+
+nav a.router-link-exact-active:hover {
+  background-color: transparent;
+}
+
+nav a {
+  display: inline-block;
+  padding: 0 1rem;
+  border-left: 1px solid var(--color-border);
+}
+
+nav a:first-of-type {
+  border: 0;
 }
 
 @media (min-width: 1024px) {
@@ -77,6 +100,15 @@ a,
 
   .logo {
     margin: 0 2rem 0 0;
+  }
+
+  nav {
+    text-align: left;
+    margin-left: -1rem;
+    font-size: 1rem;
+
+    padding: 1rem 0;
+    margin-top: 1rem;
   }
 }
 </style>
