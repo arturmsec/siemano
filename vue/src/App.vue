@@ -10,7 +10,7 @@ import { RouterLink, RouterView } from 'vue-router'
         <RouterLink to="/formularz">Formularz</RouterLink>
         <RouterLink to="/adminpanel">Panel admina</RouterLink>
         <RouterLink to="/login">Logowanie</RouterLink>
-        <RouterLink to="/registry">Rejestracja</RouterLink>
+        <RouterLink to="/register">Rejestracja</RouterLink>
       </nav>
     </div>
   </header>
