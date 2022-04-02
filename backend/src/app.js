@@ -21,4 +21,10 @@ app.get('/status', (req, res) => { // try opening localhost:8081/status
   })
 })
 
+app.post('/register', (req, res) => {
+  res.send({
+    message: `Hello ${req.body.email} ! Your user was registered!`
+  })
+})
+
 app.listen(process.env.PORT || 8081)
