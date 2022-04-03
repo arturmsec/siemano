@@ -20,8 +20,10 @@ app.get('/', (req_name, res_name) =>{
     res_name.send('Serwer XevaApp działa!');
 });
 
-//API dla formularza 1 dla klienta
+//API dla formularza dla klienta
 app.post('/clients', async (req, res) => {
+    console.log("body request", req.body)
+
     await Client.create(req.body);
     res.send('Client is insreted in DB');
 })
