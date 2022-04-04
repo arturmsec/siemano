@@ -7,8 +7,6 @@ export default {
       email: '',
       product_type: '',
     }
-  },
-  methods: {
   }
 }
 </script>
@@ -28,9 +26,12 @@ export default {
         <option value="2"> Osłony zewnętrzne</option>
         <option value="3"> Ogród</option>
       </select>
-      <button @click="$router.push('/formularz2')">
-      Dalej
-      </button>
+      <!-- TO DO: Opcja if która wyświetli kolejeny button
+      na kolejne wybory
+      lub
+      slider który otwiera kolejny slider
+      -->
+      <div><button id="sendBtn">Dalej</button></div>
     </form>
     <p> {{first_name}} </p>
     <p> {{last_name}} </p>
