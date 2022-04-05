@@ -1,26 +1,25 @@
 <script>
-export default {
-  data() {
-    return {
-      firstName: 'Tomek',
-      lastName: 'Kowalski',
-      phoneNumber: '123456789',
-      email: 'Tom.kowal69@o2.pl',
-      productType: '3',
-    }
+  import FormService from '@/services/FormService'
+  export default {
+    data() {
+      return {
+        firstName: 'Tomasz Bobek',
+        phone: '531531531',
+        mail: 'Tomasz.Bobek@gmail.com',
+        product: '',
+      }
   },
-  methods: {
-    async saveData () {
-      const response = await FormService.saveData( {
-      firstName: this.firstName,
-      lastName: this.lastName,
-      phoneNumber: this.phoneNumber,
-      email: this.email,
-      productType: this.productType,
-    })
+    methods: {
+      async saveClientInfo () {
+        const response = await FormService.saveClientInfo( {
+        name: this.firstName,
+        phone: this.phone,
+        mail: this.mail,
+        product: this.product,
+      })
+      }
     }
   }
-}
 </script>
 
 <template>
@@ -28,40 +27,26 @@ export default {
     <form>
       <p> Twoje dane kontaktowe</p>
       <input 
+        v-model = "firstName"
         type="text"
-        placeholder="Imię *"  
-        required 
-        pattern="[a-zA-ZÀ-ž]{57}+"
-        v-model = "firstName">
-        <input 
-        type="text"
-        placeholder="Nazwisko *"  
-        pattern="[a-zA-ZÀ-ž]{27}+"
-        required 
-        v-model = "lastName">
+        placeholder="Imię i nazwisko *">
       <input 
+        v-model = "phone"
         type="tel" 
-        placeholder="Podaj nr telefonu *" 
-        required 
-        pattern="[0-9]{9}"
-        v-model = "phoneNumber">
+        placeholder="Podaj nr telefonu *">
       <input 
+        v-model = "mail"
         type="email" 
-        placeholder="Podaj adres e-mail *" 
-        required 
-        v-model = "email">
+        placeholder="Podaj adres e-mail *" >
       <select 
-        v-model = "productType" 
-        required
+        v-model = "product"
         id='product_options'>
         <option value="" disabled selected hidden> Wybierz typ produktu *> </option>
         <option value="1"> Osłony wewnętrzne </option>
         <option value="2"> Osłony zewnętrzne</option>
         <option value="3"> Ogród</option>
       </select>
-      <button @click="saveData, $router.push('/formularz2')">
-        Dalej
-      </button>
+      <button type = "button" @click = "saveClientInfo"> Dalej </button>
     </form>
   </div>
 </template>
