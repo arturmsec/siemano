@@ -6,7 +6,7 @@
         firstName: 'Tomasz Bobek',
         phone: '531531531',
         mail: 'Tomasz.Bobek@gmail.com',
-        product: 'A co Cie to?',
+        product: '',
       }
   },
     methods: {
@@ -29,7 +29,7 @@
       <input 
         v-model = "firstName"
         type="text"
-        placeholder="Imię *">
+        placeholder="Imię i nazwisko *">
       <input 
         v-model = "phone"
         type="tel" 
