@@ -1,6 +1,15 @@
 <script>
 export default {
   data() {
+    return {
+      postalCode: this.postalCode,
+      city: this.city,
+      street: this.street,
+      homeNumber: this.homeNumber,
+      localNumber: this.localNumber,
+      clientMessage: this.clientMessage
+    }
+
   }
 }
 </script>
@@ -8,33 +17,45 @@ export default {
 <template>
   <div>
     <form>
-      <p> Twoje dane kontaktowe</p>
-      <label>Kod pocztowy:</label>
-      <input type="text" required v-model = "postal_code">
-
-      <label>Miasto:</label>
-      <input type="text" required v-model = "city">
-
-      <label>ulica:</label>
-      <input type="text" required v-model = "street">
-
-      <label>nr lokalu:</label>
-      <input type="text" required v-model = "apartment_Number1">
-
-      <label>nr mieszkania:</label>
-      <input type="text" required v-model = "apartment_Number12">
-    
-      <button @click="$router.push('/formularz')">
-      Poprzedni krok
+      <p> Adres pomiaru</p>
+      <input 
+        type="text" 
+        required 
+        v-model = "postalCode"
+        placeholder="Kod pocztowy *">
+      <input 
+        type="text" 
+        required 
+        v-model = "city"
+        placeholder="Miasto *">
+      <input 
+        type="text" 
+        required 
+        v-model = "street"
+        placeholder="Ulica *">
+      <input 
+        type="text" 
+        required 
+        v-model = "homeNumber"
+        placeholder="Nr lokalu *">
+      <input 
+        type="text" 
+        required 
+        v-model = "localNumber"
+        placeholder="Nr mieszkania *">
+      <input 
+        type="text" 
+        required 
+        v-model = "clientMessage"
+        placeholder="Napisz wiadomość">
+        
+      <button type = "button" @click="$router.push('/formularz')">
+        Poprzedni krok
       </button>
-      <button @click="$router.push('/')">
-      Zamów pomiar
+      <button type = "button" @click="$router.push('/')">
+        Zamów pomiar
       </button>
     </form>
-    <p> {{first_name}} </p>
-    <p> {{last_name}} </p>
-    <p> {{email}} </p>
-    <p> {{product_type}} </p>
   </div>
 </template>
 
