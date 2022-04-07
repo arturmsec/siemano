@@ -1,6 +1,7 @@
 // Definicja modułów
 const bodyParser = require('body-parser');
 const express = require('express');
+const { body,validationResult } = require('express-validator'); //wymaga instalacji: npm install --save express-validator
 var cors = require('cors');
 
 const sequelize = require('../db/database');
@@ -23,11 +24,24 @@ app.get('/', (reqName, resName) => {
 });
 
 // API dla formularza dla klienta
-app.post('/clients', async (req, res) => {
+app.post('/clients',
+body('name').isLength({ min: 1 }), //obsluga bledow
+body('phone').isLength({ min: 1 }),
+body('nmail').isEmail(),
+body('product').isLength({ min: 1 }),
+body('postCode').isLength({ min: 1 }),
+body('city').isLength({ min: 1 }),
+body('street').isLength({ min: 1 }),
+async (req, res) => {
+  const errors = validationResult(req);
   console.log('body request', req.body);
-
+  if(!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() }); //jesli wystapia bledy, to zwraca jsona z informacjami o bledach; jsona trzeba bedzie odpowiednio pokazac po stronie klienta
+  }
+  
   await Client.create(req.body);
   res.send('Client is insreted in DB');
+
 });
 
 app.get('/clients', async (req, res) => {
