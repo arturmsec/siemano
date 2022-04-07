@@ -3,10 +3,17 @@
   export default {
     data() {
       return {
-        firstName: 'Tomasz Bobek',
-        phone: '531531531',
-        mail: 'Tomasz.Bobek@gmail.com',
-        product: '',
+        name: this.name,
+        phone: this.phone,
+        mail: this.mail,
+        product: this.product,
+        postalCode: this.postalCode,
+        city: this.city,
+        street: this.street,
+        homeNumber: this.homeNumber,
+        localNumber: this.localNumber,
+        clientMessage: this.clientMessage,
+        state: 1
       }
   },
     methods: {
@@ -16,7 +23,21 @@
         phone: this.phone,
         mail: this.mail,
         product: this.product,
+        postCode: this.postalCode,
+        city: this.city,
+        street: this.street,
+        homeNumber: this.homeNumber,
+        localNumber: this.localNumber,
+        message: this.clientMessage
       })
+      },
+      changeState () {
+        if (this.state === 1){
+          this.state++
+        }
+        else {
+          this.state--
+        }
       }
     }
   }
@@ -24,14 +45,15 @@
 
 <template>
   <div>
-    <form>
+    <form v-if= "state === 1">
+      <p>Umówienie pomiaru krok {{state}} z {{state+1}}</p>
       <p>Twoje dane kontaktowe</p>
       <input
         class="name"
         type="text"
         placeholder="Imię *"
         required
-        pattern="[a-zA-ZÀ-ž]{57}+"
+        pattern="[a-zA-Z]{57}"
         v-model="name"
       />
       <input
@@ -48,16 +70,59 @@
       placeholder="Podaj adres e-mail *" 
       required 
       v-model="mail" />
+
       <select 
-      v-model="product" 
-      required 
-      id="product">
-        <option value disabled selected hidden>Wybierz typ produktu *></option>
-        <option value="1">Osłony wewnętrzne</option>
-        <option value="2">Osłony zewnętrzne</option>
-        <option value="3">Ogród</option>
+        v-model="product" 
+        required 
+        id="product">
+        <option value="" disabled selected hidden>Wybierz typ produktu *</option>
+        <option value="Osłony wewnętrzne">Osłony wewnętrzne</option>
+        <option value="Osłony zewnętrzne">Osłony zewnętrzne</option>
+        <option value="Ogród">Ogród</option>
       </select>
-      <button type = "button" @click="saveClientInfo">Dalej</button>
+      <button type = "button" @click="changeState">Dalej</button>
+    </form>
+
+    <form v-else>
+      <p>Umówienie pomiaru krok {{state}} z {{state}}</p>
+      <p> Adres pomiaru</p>
+      <input 
+        type="text" 
+        required 
+        v-model = "postalCode"
+        placeholder="Kod pocztowy *">
+      <input 
+        type="text" 
+        required 
+        v-model = "city"
+        placeholder="Miasto *">
+      <input 
+        type="text" 
+        required 
+        v-model = "street"
+        placeholder="Ulica *">
+      <input 
+        type="text" 
+        required 
+        v-model = "homeNumber"
+        placeholder="Nr lokalu *">
+      <input 
+        type="text" 
+        required 
+        v-model = "localNumber"
+        placeholder="Nr mieszkania *">
+      <input 
+        type="text" 
+        required 
+        v-model = "clientMessage"
+        placeholder="Napisz wiadomość">
+        
+      <button type = "button" @click="changeState">
+        Poprzedni krok
+      </button>
+      <button type = "button" @click="saveClientInfo">
+        Zamów pomiar
+      </button>
     </form>
   </div>
 </template>
@@ -83,6 +148,7 @@
 }
 
 p {
+  color: black;
   font-size: large;
   font-style: bold;
   font-weight: bold;
@@ -105,7 +171,7 @@ input {
   border-width: 3px;
   color: #555;
 }
-select#product_options {
+select#product {
   display: block;
   padding: 10px 6px;
   margin: 20px auto;
