@@ -105,6 +105,13 @@ export default {
         required
         v-model="apartment_Number12"
       />
+      <textarea
+        type="text"
+        class="message"
+        placeholder="Zostaw nam wiadomość! ;>"
+        required
+        v-model="clientMessage">
+      </textarea>
 
       <button type="button" class="backButton buttonForm2" @click="changeState">Poprzedni krok</button>
       <button
@@ -194,6 +201,16 @@ input {
   border-width: 3px;
   color: #555;
 }
+textarea {
+  display: block;
+  margin-top: 20px;
+  padding: 10px 6px;
+  box-sizing: borrder-box;
+  border-style: solid;
+  border-color: rgba(180, 180, 180, 0.829);
+  border-width: 3px;
+  color: #555;
+}
 select#product {
   display: block;
   padding: 10px 6px;
@@ -224,5 +241,10 @@ select#product {
   width: 200px;
   margin-left: 140px;
   font-weight: 850;
+}
+.message {
+  width: 100%;
+  height: 100px;
+  display: block;
 }
 </style>
