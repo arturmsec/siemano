@@ -47,7 +47,7 @@
   <div>
     <form v-if= "state === 1">
       <p>Umówienie pomiaru krok {{state}} z {{state+1}}</p>
-      <p>Twoje dane kontaktowe</p>
+      <p class="mainParagraph" >Twoje dane kontaktowe</p>
       <input
         class="name"
         type="text"
@@ -80,49 +80,51 @@
         <option value="Osłony zewnętrzne">Osłony zewnętrzne</option>
         <option value="Ogród">Ogród</option>
       </select>
-      <button type = "button" @click="changeState">Dalej</button>
+      <button type = "button" class = "nextbutton" @click="changeState">Dalej</button>
     </form>
 
     <form v-else>
       <p>Umówienie pomiaru krok {{state}} z {{state}}</p>
-      <p> Adres pomiaru</p>
+      <p class="mainParagraph">Adres pomiaru</p>
+      <input
+        type="text"
+        class="postalCode"
+        placeholder="Kod pocztowy *"
+        required
+        v-model="postal_code"
+      />
+
       <input 
         type="text" 
+        class="city" 
+        placeholder="Miasto *" 
         required 
-        v-model = "postalCode"
-        placeholder="Kod pocztowy *">
+        v-model="city" />
+
       <input 
         type="text" 
-        required 
-        v-model = "city"
-        placeholder="Miasto *">
-      <input 
-        type="text" 
-        required 
-        v-model = "street"
-        placeholder="Ulica *">
-      <input 
-        type="text" 
-        required 
-        v-model = "homeNumber"
-        placeholder="Nr lokalu *">
-      <input 
-        type="text" 
-        required 
-        v-model = "localNumber"
-        placeholder="Nr mieszkania *">
-      <input 
-        type="text" 
-        required 
-        v-model = "clientMessage"
-        placeholder="Napisz wiadomość">
-        
-      <button type = "button" @click="changeState">
-        Poprzedni krok
-      </button>
-      <button type = "button" @click="saveClientInfo">
-        Zamów pomiar
-      </button>
+        class="street" 
+        placeholder="Ulica *" 
+        required v-model="street" />
+
+      <input
+        type="text"
+        class="houseNumber"
+        placeholder="Nr lokalu *"
+        required
+        v-model="apartment_Number1"
+      />
+
+      <input
+        type="text"
+        class="flatNumber"
+        placeholder="Nr mieszkania *"
+        required
+        v-model="apartment_Number12"
+      />
+
+      <button type = "button" class="backButton" @click="changeState">Poprzedni krok</button>
+      <button type = "button" class="placeOrderButton" @click="saveClientInfo">Zamów pomiar</button>
     </form>
   </div>
 </template>
@@ -147,11 +149,49 @@
   width: 100%;
 }
 
-p {
-  color: black;
+.flatNumber {
+  width: 33%;
+  display: inline;
+  box-sizing: border-box;
+  left: 2px;
+}
+
+.houseNumber {
+  width: 24%;
+  display: inline;
+  left: 1px;
+}
+
+.street {
+  width: 43%;
+  display: inline-block;
+}
+.city {
+  width: 65%;
+  display: inline;
+  left: 2px;
+}
+
+.postalCode {
+  width: 35%;
+  display: inline;
+}
+.mainParagraph {
   font-size: large;
   font-style: bold;
   font-weight: bold;
+}
+.placeOrderButton {
+  margin-right: 0px;
+  margin-left: 20px;
+}
+.backButton {
+  margin-right: 20px;
+  margin-left: 0px;
+}
+.nextbutton {
+  margin-right: 0px;
+  margin-left: 20px;
 }
 
 form {
