@@ -1,24 +1,24 @@
 <script>
-  import FormService from '@/services/FormService'
-  export default {
-    data() {
-      return {
-        name: this.name,
-        phone: this.phone,
-        mail: this.mail,
-        product: this.product,
-        postalCode: this.postalCode,
-        city: this.city,
-        street: this.street,
-        homeNumber: this.homeNumber,
-        localNumber: this.localNumber,
-        clientMessage: this.clientMessage,
-        state: 1
-      }
+import FormService from '@/services/FormService'
+export default {
+  data() {
+    return {
+      name: this.name,
+      phone: this.phone,
+      mail: this.mail,
+      product: this.product,
+      postalCode: this.postalCode,
+      city: this.city,
+      street: this.street,
+      homeNumber: this.homeNumber,
+      localNumber: this.localNumber,
+      clientMessage: this.clientMessage,
+      state: 1
+    }
   },
-    methods: {
-      async saveClientInfo () {
-        const response = await FormService.saveClientInfo( {
+  methods: {
+    async saveClientInfo() {
+      const response = await FormService.saveClientInfo({
         name: this.name,
         phone: this.phone,
         mail: this.mail,
@@ -30,24 +30,24 @@
         localNumber: this.localNumber,
         message: this.clientMessage
       })
-      },
-      changeState () {
-        if (this.state === 1){
-          this.state++
-        }
-        else {
-          this.state--
-        }
+    },
+    changeState() {
+      if (this.state === 1) {
+        this.state++
+      }
+      else {
+        this.state--
       }
     }
   }
+}
 </script>
 
 <template>
   <div>
-    <form v-if= "state === 1">
-      <p>Umówienie pomiaru krok {{state}} z {{state+1}}</p>
-      <p class="mainParagraph" >Twoje dane kontaktowe</p>
+    <form v-if="state === 1">
+      <p>Umówienie pomiaru krok {{ state }} z {{ state + 1 }}</p>
+      <p class="mainParagraph">Twoje dane kontaktowe</p>
       <input
         class="name"
         type="text"
@@ -64,27 +64,19 @@
         pattern="[0-9]{9}"
         v-model="phone"
       />
-      <input 
-      class="mail" 
-      type="email" 
-      placeholder="Podaj adres e-mail *" 
-      required 
-      v-model="mail" />
+      <input class="mail" type="email" placeholder="Podaj adres e-mail *" required v-model="mail" />
 
-      <select 
-        v-model="product" 
-        required 
-        id="product">
-        <option value="" disabled selected hidden>Wybierz typ produktu *</option>
+      <select v-model="product" required id="product">
+        <option value disabled selected hidden>Wybierz typ produktu *</option>
         <option value="Osłony wewnętrzne">Osłony wewnętrzne</option>
         <option value="Osłony zewnętrzne">Osłony zewnętrzne</option>
         <option value="Ogród">Ogród</option>
       </select>
-      <button type = "button" class = "nextbutton" @click="changeState">Dalej</button>
+      <button type="button" class="buttonForm1" @click="changeState">Dalej</button>
     </form>
 
     <form v-else>
-      <p>Umówienie pomiaru krok {{state}} z {{state}}</p>
+      <p>Umówienie pomiaru krok {{ state }} z {{ state }}</p>
       <p class="mainParagraph">Adres pomiaru</p>
       <input
         type="text"
@@ -94,18 +86,9 @@
         v-model="postal_code"
       />
 
-      <input 
-        type="text" 
-        class="city" 
-        placeholder="Miasto *" 
-        required 
-        v-model="city" />
+      <input type="text" class="city" placeholder="Miasto *" required v-model="city" />
 
-      <input 
-        type="text" 
-        class="street" 
-        placeholder="Ulica *" 
-        required v-model="street" />
+      <input type="text" class="street" placeholder="Ulica *" required v-model="street" />
 
       <input
         type="text"
@@ -123,8 +106,12 @@
         v-model="apartment_Number12"
       />
 
-      <button type = "button" class="backButton" @click="changeState">Poprzedni krok</button>
-      <button type = "button" class="placeOrderButton" @click="saveClientInfo">Zamów pomiar</button>
+      <button type="button" class="backButton buttonForm2" @click="changeState">Poprzedni krok</button>
+      <button
+        type="button"
+        class="placeOrderButton buttonForm2"
+        @click="saveClientInfo"
+      >Zamów pomiar</button>
     </form>
   </div>
 </template>
@@ -189,10 +176,6 @@
   margin-right: 20px;
   margin-left: 0px;
 }
-.nextbutton {
-  margin-right: 0px;
-  margin-left: 20px;
-}
 
 form {
   max-width: 420px;
@@ -222,7 +205,17 @@ select#product {
   border-width: 2px;
   color: #555;
 }
-button {
+.buttonForm2 {
+  color: rgb(256, 212, 4);
+  background-color: black;
+  border-width: 2px;
+  border-color: black;
+  padding: 10px;
+  width: 150px;
+  font-weight: 850;
+  margin-top: 10px;
+}
+.buttonForm1 {
   color: rgb(256, 212, 4);
   background-color: black;
   border-width: 2px;
