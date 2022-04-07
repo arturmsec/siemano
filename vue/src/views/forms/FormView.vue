@@ -51,7 +51,7 @@ export default {
       <input
         class="name"
         type="text"
-        placeholder="Imię *"
+        placeholder="Imię i nazwisko*"
         required
         pattern="[a-zA-Z]{57}"
         v-model="name"
@@ -64,7 +64,12 @@ export default {
         pattern="[0-9]{9}"
         v-model="phone"
       />
-      <input class="mail" type="email" placeholder="Podaj adres e-mail *" required v-model="mail" />
+      <input 
+        class="mail" 
+        type="email" 
+        placeholder="Podaj adres e-mail *" 
+        required 
+        v-model="mail" />
 
       <select v-model="product" required id="product">
         <option value disabled selected hidden>Wybierz typ produktu *</option>
@@ -83,19 +88,28 @@ export default {
         class="postalCode"
         placeholder="Kod pocztowy *"
         required
-        v-model="postal_code"
+        v-model="postalCode"
       />
+      <input 
+        type="text" 
+        class="city" 
+        placeholder="Miasto *" 
+        required 
+        v-model="city" />
 
-      <input type="text" class="city" placeholder="Miasto *" required v-model="city" />
-
-      <input type="text" class="street" placeholder="Ulica *" required v-model="street" />
+      <input 
+      type="text"
+      class="street" 
+      placeholder="Ulica *" 
+      required 
+      v-model="street" />
 
       <input
         type="text"
         class="houseNumber"
         placeholder="Nr lokalu *"
         required
-        v-model="apartment_Number1"
+        v-model="homeNumber"
       />
 
       <input
@@ -103,7 +117,7 @@ export default {
         class="flatNumber"
         placeholder="Nr mieszkania *"
         required
-        v-model="apartment_Number12"
+        v-model="localNumber"
       />
       <textarea
         type="text"
@@ -113,12 +127,18 @@ export default {
         v-model="clientMessage">
       </textarea>
 
-      <button type="button" class="backButton buttonForm2" @click="changeState">Poprzedni krok</button>
+      <button 
+        type="button" 
+        class="backButton buttonForm2" 
+        @click="changeState">
+        Poprzedni krok
+      </button>
       <button
         type="button"
         class="placeOrderButton buttonForm2"
-        @click="saveClientInfo"
-      >Zamów pomiar</button>
+        @click="saveClientInfo">
+        Zamów pomiar
+      </button>
     </form>
   </div>
 </template>
