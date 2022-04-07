@@ -1,6 +1,15 @@
 <script>
 export default {
   data() {
+    return {
+      postalCode: this.postalCode,
+      city: this.city,
+      street: this.street,
+      homeNumber: this.homeNumber,
+      localNumber: this.localNumber,
+      clientMessage: this.clientMessage
+    }
+
   }
 }
 </script>

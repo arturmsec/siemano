@@ -1,6 +1,7 @@
 // Definicja modułów
 const bodyParser = require('body-parser');
 const express = require('express');
+var cors = require('cors');
 
 const sequelize = require('../db/database');
 const Client = require('../db/Client');
@@ -13,6 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors());
 
 // Informacja przy wejsciu na adres serwera
 app.get('/', (reqName, resName) => {
