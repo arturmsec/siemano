@@ -1,3 +1,21 @@
+<script>
+  //importrt AuthenticationService from '@/services/AuthenticationService'
+  export default {
+    data() {
+      return {
+        email: '',
+        password:  ''
+      }
+    }
+  };
+  // methods: {
+  //   async login () {
+  //     const response = await AuthenticationService.login({
+  //       email: this.email,
+  //       password: this.password
+  //     })
+  //   }
+  // }
 </script>
 
 <template>
