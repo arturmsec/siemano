@@ -15,12 +15,7 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/forms/FormView.vue')
-    },
-    {
-      path: '/formularz2',
-      name: 'formularz2',
-      component: () => import('../views/forms/FormView2.vue')
+      component: () => import('../views/FormView.vue')
     },
     {
       path: '/adminpanel',

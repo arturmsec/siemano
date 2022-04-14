@@ -1,0 +1,37 @@
+form {
+    max-width: 420px;
+    margin: 30px auto;
+    background: white;
+    text-align: left;
+    padding: 40px;
+  }
+  input {
+    display: block;
+    margin-top: 20px;
+    padding: 10px 6px;
+    box-sizing: borrder-box;
+    border-style: solid;
+    border-color: rgba(180, 180, 180, 0.829);
+    border-width: 3px;
+    color: #555;
+  }
+  textarea {
+    display: block;
+    margin-top: 20px;
+    padding: 10px 6px;
+    box-sizing: borrder-box;
+    border-style: solid;
+    border-color: rgba(180, 180, 180, 0.829);
+    border-width: 3px;
+    color: #555;
+  }
+  button {
+    color: rgb(256, 212, 4);
+    background-color: black;
+    border-width: 2px;
+    border-color: black;
+    padding: 10px;
+    width: 150px;
+    font-weight: 850;
+    margin-top: 10px;
+  }
