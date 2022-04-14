@@ -19,8 +19,8 @@
 </script>
 
 <template>
-  <div>
-    <h2>This is Registry View</h2>
+  <form>
+    <h2>Hello! Please register yourself!</h2>
     <input 
       type="email"
       name="email"
@@ -34,11 +34,14 @@
       v-model="password"
       />
       <button
-        @click="register">
+        type="button"
+        @click="register"
+        class = "button">
         Register
       </button>
-  </div>
+  </form>
 </template>
 
 <style>
+@import '@/assets/form.css';
 </style>>
