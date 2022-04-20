@@ -144,6 +144,7 @@ export default {
 </template>
 
 <style>
+@import '@/assets/form.css';
 .mail {
   width: 50%;
   display: inline;
@@ -204,33 +205,6 @@ export default {
   margin-left: 0px;
 }
 
-form {
-  max-width: 420px;
-  margin: 30px auto;
-  background: white;
-  text-align: left;
-  padding: 40px;
-}
-input {
-  display: block;
-  margin-top: 20px;
-  padding: 10px 6px;
-  box-sizing: borrder-box;
-  border-style: solid;
-  border-color: rgba(180, 180, 180, 0.829);
-  border-width: 3px;
-  color: #555;
-}
-textarea {
-  display: block;
-  margin-top: 20px;
-  padding: 10px 6px;
-  box-sizing: borrder-box;
-  border-style: solid;
-  border-color: rgba(180, 180, 180, 0.829);
-  border-width: 3px;
-  color: #555;
-}
 select#product {
   display: block;
   padding: 10px 6px;
