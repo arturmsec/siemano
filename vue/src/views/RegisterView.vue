@@ -13,6 +13,12 @@
         email: this.email,
         password: this.password
       })
+      if(response.error){
+        alert(response.error);
+      }
+      else{
+        alert("Zarejestrowano pomyślnie");
+      }
       }
     }
   }
