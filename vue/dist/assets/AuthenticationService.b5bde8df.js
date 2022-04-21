@@ -1,0 +1,1 @@
+import{A as o}from"./Api.b3e65364.js";var t={register(r){try{return console.log(r),o().post("/users/registration",r)}catch{return{error:"Nieprawid\u0142owy email lub has\u0142o"}}},login(r){try{return console.log(r),o().post("/users/login",r)}catch{return{error:"Nieprawid\u0142owy email lub has\u0142o"}}}};export{t as A};

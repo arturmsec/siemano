@@ -1,0 +1,1 @@
+import{_ as e,o as n,c as a,a as s}from"./index.ecda8f4c.js";const c={},o=s("h2",null,"This is AdminPanel View",-1),t=[o];function r(_,i){return n(),a("main",null,t)}var d=e(c,[["render",r]]);export{d as default};
