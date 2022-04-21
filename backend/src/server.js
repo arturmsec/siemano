@@ -73,6 +73,25 @@ app.get('/clients/:id', async (req, res) => {
 
 app.post('/users/registration', async (req, res) => {
   console.log('body request', req.body);
+
+  if(req.body.login.length > 255 || req.body.login.length < 3)
+    {
+        res.status(400);
+        res.send('Login must be between 3 and 255 characters');
+        return;
+    }
+  if(req.body.password.length > 255 || req.body.password.length < 5)
+    {
+        res.status(400);
+        res.send('Password must be between 5 and 255 characters');
+        return;
+    }
+    const existingUser = await User.findOne({ where: { login: req.body.login } });
+    if(existingUser !== null)
+    {
+       res.status(400);
+       res.send('User with this login exists')
+    }
   await User.create(req.body);
   res.send('User has been registered.');
 
@@ -137,3 +156,4 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Serwer wystartował na porcie ${PORT}.`);
 });
+
