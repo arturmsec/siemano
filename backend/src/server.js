@@ -1,4 +1,4 @@
-// Definicja modułów
+// Definition of modules
 const bodyParser = require('body-parser');
 const express = require('express');
 const { body,validationResult } = require('express-validator'); //wymaga instalacji: npm install --save express-validator
@@ -14,7 +14,7 @@ sequelize.sync().then(() => console.log('db is ready'));
 
 const app = express();
 
-// Wykorzystywane rozszerzenia
+// Extensions
 app.use(session({
 	secret: 'secret',
 	resave: true,
@@ -25,15 +25,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 
-// Informacja przy wejsciu na adres serwera
+// Information after entering the server address
 app.get('/', (reqName, resName) => {
   console.log(reqName);
   resName.send('Serwer XevaApp działa!');
 });
 
-// API dla formularza dla klienta
+// Client API - form for the client
+
+// Adding a client
 app.post('/clients',
-body('name').isLength({ min: 1 }), //obsluga bledow
+body('name').isLength({ min: 1 }), // Error handling
 body('phone').isLength({ min: 1 }),
 body('nmail').isEmail(),
 body('product').isLength({ min: 1 }),
@@ -52,27 +54,30 @@ async (req, res) => {
 
 });
 
+// Getting all clients
 app.get('/clients', async (req, res) => {
   const clients = await Client.findAll();
   res.send(clients);
 });
 
+// Getting client with specified ID
 app.get('/clients/:id', async (req, res) => {
   const reqID = req.params.id;
   const client = await Client.findOne({ where: { id: reqID } });
   res.send(client);
 });
 
-// PANEL ADMINISTRATORA
+// ADMINISTRATOR PANEL
 
-//REJESTRACJA - zapisuje nie hashuje hasła
+// Registration - saves but does not hashes passwords
 
 app.post('/users/registration', async (req, res) => {
   console.log('body request', req.body);
   await User.create(req.body);
   res.send('User has been registered.');
 
-  // Proba hashowania hasła
+  // Attempt to secure a password
+
   /*try {
     console.log('body request', req.body);
     const salt = await bcrypt.genSalt();
@@ -85,23 +90,23 @@ app.post('/users/registration', async (req, res) => {
 
 });
 
-//LOGOWANIE
+// Login API 
 app.post('/users/login', async (req, res) => {
   
   let login = req.body.login;
   let pass = req.body.password
 
-  //Sprawdzenie poprawności danych
+  // Data validation
   if (login && pass){
-    //odwołanie do bazy danych
+    // DB reference
     const user = await User.findByPk(login);
 
     if (pass == user.password){
-        //Autentykacja użytownika
+        // User auth
         req.session.loggedin = true;
         req.session.username = login;
 
-        //Przeniesienie do strony panelu admina/uzytkownika
+        // Redirect to admin/user panel
         res.redirect('/home');
     } else {
       res.send('Niepoprawny login lub hasło!');
@@ -113,21 +118,21 @@ app.post('/users/login', async (req, res) => {
   }
 });
 
-// Komunikat po wejściu na panel admina/uzytkownika (roboczo domena /home)
+// Message after entering the user/admin panel (for tests /home domain)
 app.get('/home', function(req, res) {
-	// Jesli uzytkownik jest zalogowany
+	// User logged in
 	if (req.session.loggedin) {
-		// Output username
+		// Message with username
 		res.send('Witaj ponownie, ' + req.session.username + '!');
 	} else {
-		// Jeśli nie jest zalogowany
+		// User do not logged in
 		res.send('Proszę się zalogowć aby wyświetlić tą stronę!');
 	}
 	res.end();
 });
 
 
-// Ustawienie portu nasłuchiwania serwera
+// Setting server listening port
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Serwer wystartował na porcie ${PORT}.`);
