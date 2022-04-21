@@ -35,3 +35,9 @@ form {
     font-weight: 850;
     margin-top: 10px;
   }
+  p {
+    text-align: center;
+  }
+  h3 {
+    text-align: center;
+  }
