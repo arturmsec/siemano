@@ -11,7 +11,7 @@ const sequelize = require('../db/database');
 const Client = require('../db/Client');
 const User = require('../db/User');
 
-app.use('/', serveStatic(path.join(__dirname, ''../../vue/dist'')));
+app.use('/', serveStatic(path.join(__dirname, '../../vue/dist')));
 sequelize.sync().then(() => console.log('db is ready'));
 
 const app = express();
