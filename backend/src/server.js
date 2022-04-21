@@ -4,6 +4,7 @@ const express = require('express');
 const { body,validationResult } = require('express-validator'); //wymaga instalacji: npm install --save express-validator
 var cors = require('cors');
 const bcrypt = require('bcrypt');
+const session = require('express-session');
 
 const sequelize = require('../db/database');
 const Client = require('../db/Client');
@@ -14,6 +15,11 @@ sequelize.sync().then(() => console.log('db is ready'));
 const app = express();
 
 // Wykorzystywane rozszerzenia
+app.use(session({
+	secret: 'secret',
+	resave: true,
+	saveUninitialized: true
+}));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -66,6 +72,7 @@ app.post('/users/registration', async (req, res) => {
   await User.create(req.body);
   res.send('User has been registered.');
 
+  // Proba hashowania hasła
   /*try {
     console.log('body request', req.body);
     const salt = await bcrypt.genSalt();
@@ -78,25 +85,47 @@ app.post('/users/registration', async (req, res) => {
 
 });
 
-//LOGOWANIE - wysypuje apke
-app.get('/users/login', async (req, res) => {
-  const user = User.findByPk(req.params.login);
-  //const user = await User.findOne({ where: { login: req.params.login } });
-  res.send(user);
-  if (user == null) {
-    return res.status(400).send('Cannot find user.');
-  }
-  try {
-    if (await compare(req.body.password, user.password)) {
-      res.send('Succes');
+//LOGOWANIE
+app.post('/users/login', async (req, res) => {
+  
+  let login = req.body.login;
+  let pass = req.body.password
+
+  //Sprawdzenie poprawności danych
+  if (login && pass){
+    //odwołanie do bazy danych
+    const user = await User.findByPk(login);
+
+    if (pass == user.password){
+        //Autentykacja użytownika
+        req.session.loggedin = true;
+        req.session.username = login;
+
+        //Przeniesienie do strony panelu admina/uzytkownika
+        res.redirect('/home');
+    } else {
+      res.send('Niepoprawny login lub hasło!');
     }
-    else {
-      res.send('Not Allowed')
-    }
-  } catch {
-    res.status(500).send();
+    res.end();
+  } else {
+    res.send('Proszę podać login oraz hasło!');
+    res.end();
   }
 });
+
+// Komunikat po wejściu na panel admina/uzytkownika (roboczo domena /home)
+app.get('/home', function(req, res) {
+	// Jesli uzytkownik jest zalogowany
+	if (req.session.loggedin) {
+		// Output username
+		res.send('Witaj ponownie, ' + req.session.username + '!');
+	} else {
+		// Jeśli nie jest zalogowany
+		res.send('Proszę się zalogowć aby wyświetlić tą stronę!');
+	}
+	res.end();
+});
+
 
 // Ustawienie portu nasłuchiwania serwera
 const PORT = process.env.PORT || 8080;
