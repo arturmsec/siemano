@@ -5,11 +5,13 @@ const { body,validationResult } = require('express-validator'); //wymaga instala
 var cors = require('cors');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
-
+const serveStatic = require('serve-static'); //used for Heroku online serving
+const path = require('path'); //used for Heroku online serving
 const sequelize = require('../db/database');
 const Client = require('../db/Client');
 const User = require('../db/User');
 
+app.use('/', serveStatic(path.join(__dirname, '/dist')));
 sequelize.sync().then(() => console.log('db is ready'));
 
 const app = express();
