@@ -3,9 +3,11 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const { body,validationResult } = require('express-validator'); //wymaga instalacji: npm install --save express-validator
 var cors = require('cors');
+const bcrypt = require('bcrypt');
 
 const sequelize = require('../db/database');
 const Client = require('../db/Client');
+const User = require('../db/User');
 
 sequelize.sync().then(() => console.log('db is ready'));
 
@@ -53,6 +55,47 @@ app.get('/clients/:id', async (req, res) => {
   const reqID = req.params.id;
   const client = await Client.findOne({ where: { id: reqID } });
   res.send(client);
+});
+
+// PANEL ADMINISTRATORA
+
+//REJESTRACJA - zapisuje nie hashuje hasła
+
+app.post('/users/registration', async (req, res) => {
+  console.log('body request', req.body);
+  await User.create(req.body);
+  res.send('User has been registered.');
+
+  /*try {
+    console.log('body request', req.body);
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    await User.create(req.body);
+    res.send('User has been registered.');
+  } catch {
+    res.status(500).send();
+  }*/
+
+});
+
+//LOGOWANIE - wysypuje apke
+app.get('/users/login', async (req, res) => {
+  const user = User.findByPk(req.params.login);
+  //const user = await User.findOne({ where: { login: req.params.login } });
+  res.send(user);
+  if (user == null) {
+    return res.status(400).send('Cannot find user.');
+  }
+  try {
+    if (await compare(req.body.password, user.password)) {
+      res.send('Succes');
+    }
+    else {
+      res.send('Not Allowed')
+    }
+  } catch {
+    res.status(500).send();
+  }
 });
 
 // Ustawienie portu nasłuchiwania serwera
