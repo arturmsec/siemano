@@ -8,6 +8,8 @@
     "preview": "vite preview --port 5050"
   },
   "dependencies": {
+    "@vuelidate/core": "^2.0.0-alpha.40",
+    "@vuelidate/validators": "^2.0.0-alpha.28",
     "axios": "^0.26.1",
     "vue": "^3.2.31",
     "vue-router": "^4.0.12",

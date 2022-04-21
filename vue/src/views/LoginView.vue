@@ -1,21 +1,28 @@
 <script>
-  //importrt AuthenticationService from '@/services/AuthenticationService'
+  import AuthenticationService from '@/services/AuthenticationService'
   export default {
     data() {
       return {
         email: '',
         password:  ''
       }
+    },
+    methods: {
+      async login () {
+        const response = await AuthenticationService.login({
+          email: this.email,
+          password: this.password
+      })
+      if(response.error){
+        alert(response.error);
+      }
+      else{
+        alert("Zalogowano pomyślnie");
+      }
     }
-  };
-  // methods: {
-  //   async login () {
-  //     const response = await AuthenticationService.login({
-  //       email: this.email,
-  //       password: this.password
-  //     })
-  //   }
-  // }
+  }
+  
+  }
 </script>
 
 <template>
@@ -42,7 +49,7 @@
       <button
         type="button"
         class="userLogin"
-        @click="userLogin">
+        @click="login">
         Zaloguj
       </button>
     </form>

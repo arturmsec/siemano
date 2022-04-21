@@ -34,10 +34,19 @@
             login: this.email,
             password: this.password
             })
+            if(response.error){
+              alert(response.error);
+            }
+            else{
+              alert("Rejestracja zakończona pomyślnie!");
+            }
           } catch (error) {
-            this.error = error.response.data.error
+            this.error = error.response.data.error;
+            alert(error.response.data.error);
           }
         }
+        
+
       }
     }
   }
@@ -82,4 +91,4 @@ input {
   font-weight: 850;
 }
 
-</style>>
+</style>
