@@ -26,18 +26,6 @@
     },
     methods: {
     async register () {
-<<<<<<< HEAD
-      const response = await AuthenticationService.register({
-        email: this.email,
-        password: this.password
-      })
-      if(response.error){
-        alert(response.error);
-      }
-      else{
-        alert("Zarejestrowano pomyślnie");
-      }
-=======
         const result = await this.v$.$validate()
         console.log(result)
         if (result) {
@@ -46,11 +34,19 @@
             login: this.email,
             password: this.password
             })
+            if(response.error){
+              alert(response.error);
+            }
+            else{
+              alert("Rejestracja zakończona pomyślnie!");
+            }
           } catch (error) {
-            this.error = error.response.data.error
+            this.error = error.response.data.error;
+            alert(error.response.data.error);
           }
         }
->>>>>>> main
+        
+
       }
     }
   }
@@ -95,4 +91,4 @@ input {
   font-weight: 850;
 }
 
-</style>>
+</style>
