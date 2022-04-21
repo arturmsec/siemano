@@ -11,11 +11,11 @@ const sequelize = require('../db/database');
 const Client = require('../db/Client');
 const User = require('../db/User');
 
-app.use('/', serveStatic(path.join(__dirname, '../../vue/dist')));
 sequelize.sync().then(() => console.log('db is ready'));
 
 const app = express();
 
+app.use('/', serveStatic(path.join(__dirname, '../../vue/dist'))); // frontend source code for heroku
 // Extensions
 app.use(session({
 	secret: 'secret',
