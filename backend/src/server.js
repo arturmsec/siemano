@@ -37,7 +37,7 @@ app.get('/', (reqName, resName) => {
 app.post('/clients',
 body('name').isLength({ min: 1 }), // Error handling
 body('phone').isLength({ min: 1 }),
-body('nmail').isEmail(),
+body('mail').isEmail(),
 body('product').isLength({ min: 1 }),
 body('postCode').isLength({ min: 1 }),
 body('city').isLength({ min: 1 }),
