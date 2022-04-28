@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="adminPanel">
     <div class="viewChange">
       Zmiana widoku
     </div>
@@ -50,3 +50,11 @@
   background: rgb(149, 199, 119);
 }
 </style>
+
+
+
+
+
+
+
+
