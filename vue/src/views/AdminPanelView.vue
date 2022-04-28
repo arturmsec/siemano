@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <div>
     <div class="viewChange">
       Zmiana widoku
     </div>
@@ -21,7 +21,7 @@
       </div>
 
     </div>
-  </form>
+  </div>
 </template>
 
 <script>
