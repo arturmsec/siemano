@@ -37,7 +37,7 @@
             password: this.password
             })
             if(response.error){
-              this.$toast.error(response.error);
+              this.$toast.error("Błąd: " + response.error);
             }
             else{
               this.$toast.success('Rejestracja zakończona pomyślnie!');
@@ -46,11 +46,9 @@
           }
           catch (error) {
             this.error = error.response.data.error;
-            this.$toast.error(error.response.data.error);
+            this.$toast.error("Błąd: " + error.response.data.error);
           }
-        }
-        
-
+        }  
       }
     }
   }

@@ -14,7 +14,7 @@
           password: this.password
       })
       if(response.error){
-        this.$toast.error(response.error);
+        this.$toast.error("Błąd: " + response.error);
       }
       else{
         this.$toast.success('Zalogowano pomyślnie!');
