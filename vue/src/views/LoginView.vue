@@ -14,10 +14,10 @@
           password: this.password
       })
       if(response.error){
-        alert(response.error);
+        this.$toast.error(response.error);
       }
       else{
-        alert("Zalogowano pomyślnie");
+        this.$toast.success('Zalogowano pomyślnie!');
       }
     }
   }

@@ -2,6 +2,8 @@
   import AuthenticationService from '@/services/AuthenticationService'
   import useVuelidate from '@vuelidate/core'
   import { required, email, minLength, sameAs } from '@vuelidate/validators'
+
+
   export default {
     setup () {
     return { v$: useVuelidate() }
@@ -35,14 +37,16 @@
             password: this.password
             })
             if(response.error){
-              alert(response.error);
+              this.$toast.error(response.error);
             }
             else{
-              alert("Rejestracja zakończona pomyślnie!");
+              this.$toast.success('Rejestracja zakończona pomyślnie!');
             }
-          } catch (error) {
+
+          }
+          catch (error) {
             this.error = error.response.data.error;
-            alert(error.response.data.error);
+            this.$toast.error(error.response.data.error);
           }
         }
         
