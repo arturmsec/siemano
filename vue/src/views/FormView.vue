@@ -30,6 +30,13 @@ export default {
         localNumber: this.localNumber,
         message: this.clientMessage
       })
+      if (response.error){
+        this.$toast.error(response.error);
+        
+      }
+      else{
+        this.$toast.success("Przyjęto zamówienie pomiaru!")
+      }
     },
     changeState() {
       if (this.state === 1) {
