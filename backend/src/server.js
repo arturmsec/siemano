@@ -3,7 +3,8 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const { body,validationResult } = require('express-validator'); //wymaga instalacji: npm install --save express-validator
 var cors = require('cors');
-const bcrypt = require('bcrypt');
+const cookieParser = require('cookie-parser');
+
 const session = require('express-session');
 const serveStatic = require('serve-static'); //used for Heroku online serving
 const path = require('path'); //used for Heroku online serving
@@ -11,9 +12,12 @@ const sequelize = require('../db/database');
 const Client = require('../db/Client');
 const User = require('../db/User');
 
+const routes = require('../routes/routes');
+
 sequelize.sync().then(() => console.log('db is ready'));
 
 const app = express();
+
 
 app.use('/', serveStatic(path.join(__dirname, '../../vue/dist'))); // frontend source code for heroku
 // Extensions
@@ -25,7 +29,13 @@ app.use(session({
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cors());
+
+app.use(cookieParser());
+// Cors settings for JWT for frontend side
+app.use(cors({
+  credentials: true,
+  origin: 'http://localhost:5000' // Address of front server
+}));
 
 // Information after entering the server address
 app.get('/', (reqName, resName) => {
@@ -69,6 +79,11 @@ app.get('/clients/:id', async (req, res) => {
   res.send(client);
 });
 
+
+app.use(routes);
+
+/*
+
 // ADMINISTRATOR PANEL
 
 // Registration - saves but does not hashes passwords
@@ -107,7 +122,7 @@ app.post('/users/registration', async (req, res) => {
     res.send('User has been registered.');
   } catch {
     res.status(500).send();
-  }*/
+  }
 
 });
 
@@ -152,6 +167,7 @@ app.get('/home', function(req, res) {
 	res.end();
 });
 
+*/
 
 // Setting server listening port
 const PORT = process.env.PORT || 8080;
