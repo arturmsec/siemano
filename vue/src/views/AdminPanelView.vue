@@ -9,8 +9,12 @@
    <div class="row">
 
       <div class="col">
-        <div class="orders">
-          Zamówienia
+        <div class="orders"> 
+          <OrderCard
+            v-for="order in orders"
+            :key="order.id"
+            :order="order"
+          />
         </div>
       </div>
 
@@ -22,9 +26,24 @@
 
     </div>
   </div>
+
 </template>
 
 <script>
+import orders from '../data/orders.js'    //import danych testowych
+import OrderCard from './components/OrderCard.vue'
+
+export default{
+  name: 'AdminPanelView',
+  components: {
+    OrderCard 
+  },
+  data (){
+    return {
+      orders: orders
+    }
+  }
+}
 </script>
 
 
