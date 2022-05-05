@@ -11,6 +11,7 @@ import { RouterLink, RouterView } from 'vue-router'
         <RouterLink to="/adminpanel">Panel admina</RouterLink>
         <RouterLink to="/login">Logowanie</RouterLink>
         <RouterLink to="/register">Rejestracja</RouterLink>
+        <span @click="logout()">Logout</span>
       </nav>
     </div>
    

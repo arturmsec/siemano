@@ -25,8 +25,9 @@
       };
       await this.actionLoginApi(payload);
       if(this.getLoginApiStatus == "success"){
+        this.$toast.success('Zalogowano pomyślnie!');
       }else{
-        alert("failed")
+        this.$toast.error("Błąd: " + response.error);
       }
     },
   },
