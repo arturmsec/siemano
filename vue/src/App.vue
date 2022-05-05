@@ -6,21 +6,22 @@ import { RouterLink, RouterView } from 'vue-router'
   <header>
     <div class="wrapper">
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/formularz">Formularz</RouterLink>
-        <RouterLink to="/adminpanel">Panel admina</RouterLink>
-        <RouterLink to="/login">Logowanie</RouterLink>
-        <RouterLink to="/register">Rejestracja</RouterLink>
-        <span @click="logout()">Logout</span>
+        <div>
+          <RouterLink to="/">Home</RouterLink>
+          <RouterLink to="/formularz">Formularz</RouterLink>
+          <RouterLink to="/adminpanel">Panel admina</RouterLink>
+          <RouterLink to="/login">Logowanie</RouterLink>
+          <RouterLink to="/register">Rejestracja</RouterLink>
+        </div>
+        <div class="logout" @click="logout()">
+          Logout
+        </div>
       </nav>
     </div>
    
-    <RouterView />
-
-     <div class="bottomPanel">
-  
-    </div>
   </header> 
+  <RouterView />
+  <footer></footer>
 </template>
 
 <style>
