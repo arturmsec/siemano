@@ -1,8 +1,16 @@
 <script>
+import { mapGetters } from "vuex";
+export default {
+  computed: {
+    ...mapGetters("auth", {
+      getUserProfile: "getUserProfile",
+    }),
+  }
+};
 </script>
 
 <template>
-  <main>
-    <h2>This is main page View</h2>
-  </main>
+  <div>
+    <h4>Welcome to homePage!</h4>
+  </div>
 </template>
