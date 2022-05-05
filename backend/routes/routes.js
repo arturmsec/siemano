@@ -46,7 +46,7 @@ router.post('/login', async (req, res) => {
     
     let login = req.body.login;
     let pass = req.body.password;
-  
+    console.log(login, pass)
     // Data validation
     if (login && pass){
       // DB reference
@@ -71,13 +71,13 @@ router.post('/login', async (req, res) => {
           });
 
       } else {
-        return res.status(404).send({
+        return res.status(401).send({
             message: 'Niepoprawny login lub hasło!'
         });
       }
 
     } else {
-      return res.status(404).send({
+      return res.status(406).send({
           message: 'Proszę podać login oraz hasło!'}
           );
     }

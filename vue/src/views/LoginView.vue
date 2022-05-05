@@ -1,5 +1,6 @@
 <script>
   import AuthenticationService from '@/services/AuthenticationService'
+  import { mapActions, mapGetters } from "vuex";
   export default {
     data() {
       return {
@@ -7,20 +8,44 @@
         password:  ''
       }
     },
-    methods: {
-      async login () {
-        const response = await AuthenticationService.login({
-          email: this.email,
-          password: this.password
-      })
-      if(response.error){
-        this.$toast.error("Błąd: " + response.error);
+    computed: {
+      ...mapGetters("auth", {
+      getLoginApiStatus: "getLoginApiStatus",
+    }),
+  },
+  methods: {
+    ...mapActions("auth", {
+      actionLoginApi: "loginApi",
+    }),
+    async login() {
+      console.log(this.email, this.password);
+      const payload = {
+        login: this.email,
+        password: this.password,
+      };
+      await this.actionLoginApi(payload);
+      if(this.getLoginApiStatus == "success"){
+      }else{
+        alert("failed")
       }
-      else{
-        this.$toast.success('Zalogowano pomyślnie!');
-      }
-    }
-  }
+    },
+  },
+
+
+  //   methods: {
+  //     async login () {
+  //       const response = await AuthenticationService.login({
+  //         email: this.email,
+  //         password: this.password
+  //     })
+  //     if(response.error){
+  //       this.$toast.error("Błąd: " + response.error);
+  //     }
+  //     else{
+  //       this.$toast.success('Zalogowano pomyślnie!');
+  //     }
+  //   }
+  // }
   
   }
 </script>

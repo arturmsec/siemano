@@ -34,7 +34,7 @@ app.use(cookieParser());
 // Cors settings for JWT for frontend side
 app.use(cors({
   credentials: true,
-  origin: 'http://localhost:5000' // Address of front server
+  origin: 'http://localhost:3000' // Address of front server default(3000)
 }));
 
 // Information after entering the server address
@@ -171,6 +171,7 @@ app.get('/home', function(req, res) {
 
 // Setting server listening port
 const PORT = process.env.PORT || 8080;
+
 app.listen(PORT, () => {
   console.log(`Serwer wystartował na porcie ${PORT}.`);
 });
