@@ -51,13 +51,16 @@ router.post('/login', async (req, res) => {
     if (login && pass){
       // DB reference
       const user = await User.findByPk(login);
-  
-      if (pass == user.password){
+
+      // Checking if the given user exists in the DB
+      try {
+        // Checking if the given password matches that in the DB
+        if (pass == user.password){
           // User auth
           //req.session.loggedin = true;
           //req.session.username = login;
 
-          const token = jwt.sign( { login: login }, "secret");
+          const token = jwt.sign( { login: login }, "secret"); 
 
           //res.send(token)
 
@@ -70,9 +73,15 @@ router.post('/login', async (req, res) => {
             message: 'success'
           });
 
-      } else {
-        return res.status(401).send({
+        } else {
+          return res.status(401).send({
             message: 'Niepoprawny login lub hasło!'
+          });
+        }
+      } catch (error)
+      {
+        return res.status(401).send({
+          message: 'Niepoprawny login lub hasło!'
         });
       }
 
