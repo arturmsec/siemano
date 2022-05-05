@@ -61,7 +61,7 @@ router.post('/login', async (req, res) => {
 
           //res.send(token)
 
-          res.cookie('jwt', token, {
+          res.cookie('auth-jwt', token, {
               httpOnly: true,
               maxAge: 24 * 60 * 60 * 1000 // 1 Day - value in miliseconds
           });
