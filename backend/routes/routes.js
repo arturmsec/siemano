@@ -1,7 +1,8 @@
 const router = require('express').Router();
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../db/User');
+
 
   // Registration
 router.post('/register', async (req, res) => {
@@ -25,20 +26,17 @@ router.post('/register', async (req, res) => {
          res.status(400);
          res.send('User with this login exists')
       }
+    // add new user with hashed password to db
+    try {
+      const{login, password} = req.body;
+      const hash = await bcrypt.hash(password, 10);
+      await User.create({login: login, password: hash});
+      res.send('User has been registered.');
+    } catch(e) {
+      console.log(e);
+      res.status(500).send("Something goes wrong")
+    }
 
-    // const salt = await bcrypt.genSalt(10);
-    // const hashedPassword = await bcrypt.hash(req.body.password, salt);
-    /*
-    const user = new User({
-        login: req.body.login,
-        password: hashedPassword
-    })
-    */
-
-    await User.create(req.body);
-    res.send('User has been registered.');
-  
-  
   });
   
   // Login with implemented JWT Auth
