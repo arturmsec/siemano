@@ -75,6 +75,7 @@
         Register
       </button>
   </form>
+  <footer></footer>
 </template>
 
 <style>
