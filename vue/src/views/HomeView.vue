@@ -12,5 +12,6 @@ export default {
 <template>
   <div>
     <h4>Welcome to homePage!</h4>
-  </div>
+  </div> 
+  <footer></footer>
 </template>

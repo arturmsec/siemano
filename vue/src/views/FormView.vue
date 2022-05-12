@@ -147,6 +147,7 @@ export default {
       </button>
     </form>
   </div>
+  <footer></footer>
 </template>
 
 <style>
