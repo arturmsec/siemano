@@ -11,6 +11,7 @@ const path = require('path'); //used for Heroku online serving
 const sequelize = require('../db/database');
 const Client = require('../db/Client');
 const User = require('../db/User');
+const Measures = require('../db/Measures');
 
 const routes = require('../routes/routes');
 
@@ -77,6 +78,145 @@ app.get('/clients/:id', async (req, res) => {
   const reqID = req.params.id;
   const client = await Client.findOne({ where: { id: reqID } });
   res.send(client);
+});
+
+//************** Http methods for Measuremes database **************
+//this database is used for keeping measurement data like name, mail, city etc and a worker name.
+//if frontend sends POST request with client ID (ID from 'Client' database) and worker name, a new record will be added to Measures db.
+//subsequently, there's a need to add veryfication if user has got an admin privilege, because currently, everybody can assigs workers to measures, delete records etc.
+
+//showing all records in Meansures database
+app.get('/measures', async (req, res) => {
+  const measures = await Measures.findAll();
+  res.send(measures);
+});
+
+//send request with keys: measure_id and worker to assign the worker to an existing measure from Client database.
+app.post('/measures',async (req, res) => {
+  console.log('body request', req.body);
+
+  const measure_record = await Client.findOne({ where: { id: req.body.measure_id } });
+ 
+  await Measures.create({
+    name: measure_record.name,
+    phone:measure_record.phone,
+    mail:measure_record.mail,
+    product:measure_record.product,
+    postCode:measure_record.postCode,
+    city:measure_record.city,
+    street:measure_record.street,
+    homeNumber:measure_record.homeNumber,
+    localNumber:measure_record.localNumber,
+    message:measure_record.message,
+    worker: req.body.worker
+  });
+  res.send('Measure assigned to the worker');
+  
+
+});
+//deletes a record with specific id
+
+app.delete('/measures/:id', async (req, res) => {
+  const requestedId = req.params.id;
+  await Measures.destroy({ where: {id: requestedId}})
+  res.send('Removed');
+});
+
+//from what I know, it's necessary to create a particular single endpoint for every parametr (name, phone, mail etc.) to be capable to update (edit) it.
+app.put('/measures/:id/name', async (req, res) => {
+  const requestedId = req.params.id;
+  const measure = await Measures.findOne({ where: {id: requestedId}});
+  measure.name = req.body.name;
+  await measure.save();
+  res.send('Name updated');
+});
+
+app.put('/measures/:id/phone', async (req, res) => {
+  const requestedId = req.params.id;
+  const measure = await Measures.findOne({ where: {id: requestedId}});
+  measure.phone = req.body.phone;
+  await measure.save();
+  res.send('Phone updated');
+});
+
+app.put('/measures/:id/mail', async (req, res) => {
+  const requestedId = req.params.id;
+  const measure = await Measures.findOne({ where: {id: requestedId}});
+  measure.mail = req.body.mail;
+  await measure.save();
+  res.send('Mail updated');
+});
+
+app.put('/measures/:id/product', async (req, res) => {
+  const requestedId = req.params.id;
+  const measure = await Measures.findOne({ where: {id: requestedId}});
+  measure.product = req.body.product;
+  await measure.save();
+  res.send('Product updated');
+});
+
+app.put('/measures/:id/postCode', async (req, res) => {
+  const requestedId = req.params.id;
+  const measure = await Measures.findOne({ where: {id: requestedId}});
+  measure.postCode = req.body.postCode;
+  await measure.save();
+  res.send('Postcode updated');
+});
+
+app.put('/measures/:id/city', async (req, res) => {
+  const requestedId = req.params.id;
+  const measure = await Measures.findOne({ where: {id: requestedId}});
+  measure.city = req.body.city;
+  await measure.save();
+  res.send('city updated');
+});
+
+app.put('/measures/:id/street', async (req, res) => {
+  const requestedId = req.params.id;
+  const measure = await Measures.findOne({ where: {id: requestedId}});
+  measure.street = req.body.street;
+  await measure.save();
+  res.send('street updated');
+});
+
+app.put('/measures/:id/street', async (req, res) => {
+  const requestedId = req.params.id;
+  const measure = await Measures.findOne({ where: {id: requestedId}});
+  measure.street = req.body.street;
+  await measure.save();
+  res.send('street updated');
+});
+
+app.put('/measures/:id/homeNumber', async (req, res) => {
+  const requestedId = req.params.id;
+  const measure = await Measures.findOne({ where: {id: requestedId}});
+  measure.homeNumber = req.body.homeNumber;
+  await measure.save();
+  res.send('homeNumber updated');
+});
+
+app.put('/measures/:id/localNumber', async (req, res) => {
+  const requestedId = req.params.id;
+  const measure = await Measures.findOne({ where: {id: requestedId}});
+  measure.localNumber = req.body.localNumber;
+  await measure.save();
+  res.send('localNumber updated');
+});
+
+app.put('/measures/:id/message', async (req, res) => {
+  const requestedId = req.params.id;
+  const measure = await Measures.findOne({ where: {id: requestedId}});
+  measure.message = req.body.message;
+  await measure.save();
+  res.send('message updated');
+});
+
+app.put('/measures/:id/worker', async (req, res) => {
+  const requestedId = req.params.id;
+  const measure = await Measures.findOne({ where: {id: requestedId}});
+  measure.worker = req.body.worker;
+  await measure.save();
+  res.send('worker updated');
 });
 
 
