@@ -2,7 +2,7 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const { body,validationResult } = require('express-validator'); //wymaga instalacji: npm install --save express-validator
-var cors = require('cors');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
 const session = require('express-session');
