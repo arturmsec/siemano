@@ -2,6 +2,7 @@ const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../db/User');
+//const Data = require('../db/Data');
 
 
   // Registration
@@ -29,15 +30,28 @@ router.post('/register', async (req, res) => {
       }
 
     // add new user with hashed password to db
-    try {
+    //try {
       const{login, password} = req.body;
       //const hash = await bcrypt.hash(password, 10);
-      await User.create({login: login, password: password});
+      await User.create({
+        login: login,
+        password: password,
+        data: {
+          privilige: 'admin',
+          firstname: '',
+          lastname: ''  
+        }
+      }, {
+          include: [ User_Data ]
+      });
       res.send('User has been registered.');
+
+    /*
     } catch(e) {
       console.log(e);
       res.status(500).send("Something goes wrong")
     }
+    */
 
   });
 

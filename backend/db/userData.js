@@ -13,7 +13,7 @@ userData.init({
         type: DataTypes.STRING,
         unique: true
     },
-    name: {
+    firsname: {
         type: DataTypes.STRING,
         unique: true
     },
@@ -26,5 +26,6 @@ userData.init({
     modelName: 'user_data',
     timestamps: false
 })
+
 
 module.exports = userData;
