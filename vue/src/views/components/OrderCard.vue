@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <!-- <h3 class="id">{{ order.id }}</h3> -->
+        <h3 class="id">{{ order.id }}</h3>
         <h4 class="pri">{{ order.priority }}</h4>
         <h5 class="dat">{{ order.date }}</h5>
         <h2 class="type">{{ order.orderType }}</h2>
