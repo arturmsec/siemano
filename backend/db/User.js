@@ -7,11 +7,12 @@ class User extends Model {}
 User.init({
     id: {
         type: DataTypes.INTEGER,
+        primaryKey: true,
+        unique: true,
         autoIncrement: true
     },
     login: {
         type: DataTypes.STRING,
-        primaryKey: true,
         unique: true
     },
     password: {

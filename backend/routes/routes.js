@@ -52,7 +52,8 @@ router.post('/login', async (req, res) => {
     // Data validation
     if (login && pass){
       // DB reference
-      const user = await User.findByPk(login);
+      //const user = await User.findByPk(login);
+      const user = await User.findOne({ where: { login: login } });
 
       // Checking if the given user exists in the DB
       try {
@@ -106,7 +107,7 @@ router.get ('/user', async(req, res) => {
     }
     
     const login = claims.login;
-    const user = await User.findByPk(login);
+    const user = await User.findOne({ where: { login: login } });
     const {password, ...data} = await user.toJSON();
 
     res.send(data);
