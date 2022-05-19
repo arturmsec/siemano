@@ -1,6 +1,6 @@
 const { Model, DataTypes} = require('sequelize');
 const sequelize = require('./database');
-//const Privilige = require('./Privilege');
+const userData = require('./userData');
 
 class User extends Model {}
 
@@ -13,13 +13,18 @@ User.init({
     },
     login: {
         type: DataTypes.STRING,
-        unique: true
+        unique: true,
+        require:true
     },
     password: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        require:true
     },
-    privilige: {
-        type: DataTypes.BOOLEAN
+    user_data_id: {
+        // FK in userData table
+        type: DataTypes.INTEGER,
+        require:true,
+        //allowNull:false
     },
 }, {
     sequelize,
@@ -27,6 +32,7 @@ User.init({
     timestamps: false
 })
 
-//User.hasOne(Privilige);
+User.hasOne(userData);
+userData.belongsTo(User);
 
 module.exports = User;
