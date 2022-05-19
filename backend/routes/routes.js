@@ -2,7 +2,7 @@ const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../db/User');
-//const Data = require('../db/Data');
+const userData = require('../db/userData');
 
 
   // Registration
@@ -30,28 +30,20 @@ router.post('/register', async (req, res) => {
       }
 
     // add new user with hashed password to db
-    //try {
+    try {
       const{login, password} = req.body;
       //const hash = await bcrypt.hash(password, 10);
-      await User.create({
-        login: login,
-        password: password,
-        data: {
-          privilige: 'admin',
-          firstname: '',
-          lastname: ''  
-        }
-      }, {
-          include: [ User_Data ]
-      });
+      const user = await User.create({ login: login, password: password, });
+
+    // Creating new userData record assosiated to User
+      await userData.create( { userId: user.id } );
       res.send('User has been registered.');
 
-    /*
+    
     } catch(e) {
       console.log(e);
       res.status(500).send("Something goes wrong")
     }
-    */
 
   });
 
@@ -66,7 +58,6 @@ router.post('/login', async (req, res) => {
     // Data validation
     if (login && pass){
       // DB reference
-      //const user = await User.findByPk(login);
       const user = await User.findOne({ where: { login: login } });
 
       // Checking if the given user exists in the DB
@@ -110,21 +101,22 @@ router.post('/login', async (req, res) => {
 // Getting the user data to validate cookie and privileges
 router.get ('/user', async(req, res) => {
     try {
-    const cookie = req.cookies['auth-jwt'];
+      const cookie = req.cookies['auth-jwt'];
 
-    const claims = jwt.verify(cookie, 'secret');
+      const claims = jwt.verify(cookie, 'secret');
 
-    if (!claims){
+      if (!claims){
         return res.status(401).send({
             message: 'unauthenticated'
         })
-    }
+      }
     
-    const login = claims.login;
-    const user = await User.findOne({ where: { login: login } });
-    const {password, ...data} = await user.toJSON();
+      const login = claims.login;
+      const user = await User.findOne({ where: { login: login } }); // User values
+      const user_data = await userData.findOne({ where: { userId: user.id } }); // userData values
+      const {password, ...data} = await user.toJSON();
 
-    res.send(data);
+      res.send({ data, user_data });
     } catch (e)
     {
         return res.status(401).send({
@@ -141,6 +133,7 @@ router.post('/logout', (req, res) => {
         message: 'success'
     })
 })
+
 
 
 module.exports = router
