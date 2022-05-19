@@ -11,15 +11,15 @@ userData.init({
     },
     privilige: {
         type: DataTypes.STRING,
-        unique: true
+        defaultValue: 'admin'
     },
     firsname: {
         type: DataTypes.STRING,
-        unique: true
+        defaultValue: 'John'
     },
     lastname: {
         type: DataTypes.STRING,
-        unique: true
+        defaultValue: 'Doe'
     },
 }, {
     sequelize,
