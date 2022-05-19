@@ -2,6 +2,7 @@ const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../db/User');
+//const Data = require('../db/Data');
 
 
   // Registration
@@ -24,20 +25,36 @@ router.post('/register', async (req, res) => {
       if(existingUser !== null)
       {
          res.status(400);
-         res.send('User with this login exists')
+         res.send('User with this login exists');
+         return;
       }
+
     // add new user with hashed password to db
-    try {
+    //try {
       const{login, password} = req.body;
-      const hash = await bcrypt.hash(password, 10);
-      await User.create({login: login, password: hash});
+      //const hash = await bcrypt.hash(password, 10);
+      await User.create({
+        login: login,
+        password: password,
+        data: {
+          privilige: 'admin',
+          firstname: '',
+          lastname: ''  
+        }
+      }, {
+          include: [ User_Data ]
+      });
       res.send('User has been registered.');
+
+    /*
     } catch(e) {
       console.log(e);
       res.status(500).send("Something goes wrong")
     }
+    */
 
   });
+
   
   // Login with implemented JWT Auth
 router.post('/login', async (req, res) => {
@@ -45,18 +62,18 @@ router.post('/login', async (req, res) => {
     let login = req.body.login;
     let pass = req.body.password;
     console.log(login, pass)
+    
     // Data validation
     if (login && pass){
       // DB reference
-      const user = await User.findByPk(login);
+      //const user = await User.findByPk(login);
+      const user = await User.findOne({ where: { login: login } });
 
       // Checking if the given user exists in the DB
       try {
         // Checking if the given password matches that in the DB
         if (pass == user.password){
           // User auth
-          //req.session.loggedin = true;
-          //req.session.username = login;
 
           const token = jwt.sign( { login: login }, "secret"); 
 
@@ -93,7 +110,7 @@ router.post('/login', async (req, res) => {
 // Getting the user data to validate cookie and privileges
 router.get ('/user', async(req, res) => {
     try {
-    const cookie = req.cookies['jwt'];
+    const cookie = req.cookies['auth-jwt'];
 
     const claims = jwt.verify(cookie, 'secret');
 
@@ -104,7 +121,7 @@ router.get ('/user', async(req, res) => {
     }
     
     const login = claims.login;
-    const user = await User.findByPk(login);
+    const user = await User.findOne({ where: { login: login } });
     const {password, ...data} = await user.toJSON();
 
     res.send(data);
@@ -118,7 +135,7 @@ router.get ('/user', async(req, res) => {
 
 // Logout - creating new cookie that expires immediately
 router.post('/logout', (req, res) => {
-    res.cookie('jwt', '', {maxAge: 0});
+    res.cookie('auth-jwt', '', {maxAge: 0});
 
     res.send({
         message: 'success'
