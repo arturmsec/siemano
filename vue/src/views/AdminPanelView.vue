@@ -15,7 +15,12 @@
           />
     </div> 
     <div class="map">
-          Mapa
+      <GMapMap class="map"
+      :center="{lat:10, lng:10}"
+      :zoom="7"
+      map-type-id="terrain"
+      
+      ></GMapMap>
     </div>
       
 
@@ -69,16 +74,17 @@ export default{
 .map {
   position: fixed;
   display: inline-block;
-  margin-top: 200px;
-  height: 60vh;
+  margin-top: 100px;
+  height: 79%;
   width: 70%;
-  background: rgb(149, 199, 119);
+ 
 } 
 .wrapper{
   position:fixed;
   top: 0px;
   z-index: 2;
 }
+
 </style>
 
 
